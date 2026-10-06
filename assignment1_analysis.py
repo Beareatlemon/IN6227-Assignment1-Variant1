@@ -83,18 +83,25 @@ def main():
             ]), categorical),
         ])
 
-    candidates = {
-        "logistic_C_0.1": LogisticRegression(C=0.1, max_iter=1000, solver="lbfgs", random_state=SEED),
-        "logistic_C_1": LogisticRegression(C=1, max_iter=1000, solver="lbfgs", random_state=SEED),
-        "logistic_C_10": LogisticRegression(C=10, max_iter=1000, solver="lbfgs", random_state=SEED),
-        "forest_depth_12": RandomForestClassifier(n_estimators=150, max_depth=12, min_samples_leaf=5, n_jobs=-1, random_state=SEED),
-        "forest_depth_none": RandomForestClassifier(n_estimators=150, max_depth=None, min_samples_leaf=5, n_jobs=-1, random_state=SEED),
-    }
+    candidates = {}
+    for weight in (None, "balanced"):
+        for c in (0.1, 1, 10):
+            name = f"logistic_C_{c:g}_weight_{weight or 'none'}"
+            candidates[name] = LogisticRegression(C=c, class_weight=weight,
+                                                    max_iter=1000, solver="lbfgs", random_state=SEED)
+    for depth in (12, None):
+        for leaf in (2, 5, 10):
+            name = f"forest_depth_{depth or 'none'}_leaf_{leaf}"
+            candidates[name] = RandomForestClassifier(n_estimators=150, max_depth=depth,
+                                                        min_samples_leaf=leaf, n_jobs=-1,
+                                                        random_state=SEED)
     validation = {}
     for name, classifier in candidates.items():
         pipe = Pipeline([("prep", preprocessing()), ("classifier", classifier)])
         pipe.fit(X_fit, y_fit)
         validation[name] = summarize(y_val, pipe.predict_proba(X_val)[:, 1])
+        if name.startswith("logistic"):
+            validation[name]["iterations"] = int(pipe.named_steps["classifier"].n_iter_[0])
         print(name, "validation AP", round(validation[name]["average_precision"], 4), flush=True)
 
     selections = {
@@ -153,4 +160,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
