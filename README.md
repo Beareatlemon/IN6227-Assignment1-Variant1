@@ -10,7 +10,9 @@ documented parameter settings. It chooses a configuration within each family by
 average precision on a stratified validation split, refits on the supplied
 training file, and reports performance on the supplied test file. The notebook
 shows all validation results and adds a five-fold stratified stability check of
-the same 12 settings. The archive includes `IN6227-parameter-search.csv`,
+the same 12 settings. It also shows precision, recall, F1 and error counts at
+four illustrative thresholds on the original validation split; the supplied
+test comparison remains fixed at 0.50. The archive includes `IN6227-parameter-search.csv`,
 `IN6227-cross-validation.csv`, and `IN6227-cross-validation-folds.csv` so the
 single-split and fold-level results can be inspected separately.
 
