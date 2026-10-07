@@ -1,6 +1,6 @@
 _IN6227 Assignment 1 Variant 1 source_
 
-The executable Jupyter notebook `IN6227-Assignment-1.ipynb` uses short section
+The executable Jupyter notebook `IN6227-Assignment-1-Xiong-Weijie.ipynb` uses short section
 notes and embedded charts for class balance, numeric distributions, parameter
 stability, precision-recall/ROC curves, and confusion matrices. Its code uses
 the same seed, preprocessing, model candidates, validation rule, test metrics,
