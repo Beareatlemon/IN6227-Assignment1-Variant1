@@ -1,9 +1,10 @@
 _IN6227 Assignment 1 Variant 1 source_
 
-The explanatory Jupyter notebook `IN6227-Assignment-1.ipynb` presents the same
-analysis as a step-by-step assignment with reasons for each major decision.
-Its code uses the same seed, preprocessing, model candidates, validation rule,
-test metrics, and paired bootstrap as `assignment1_analysis.py`.
+The executable Jupyter notebook `IN6227-Assignment-1.ipynb` uses short section
+notes and embedded charts for class balance, numeric distributions, parameter
+stability, precision-recall/ROC curves, and confusion matrices. Its code uses
+the same seed, preprocessing, model candidates, validation rule, test metrics,
+and paired bootstrap as `assignment1_analysis.py`.
 
 This script compares logistic regression and random forest classifiers across 12
 documented parameter settings. It chooses a configuration within each family by
